@@ -20,10 +20,14 @@ default: &default
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  database: chat_practical
+  pool: 5
+  username: acer
+  password: 12344321
 
 development:
   <<: *default
-  database: chat_practical_development
+  database: chat_practical
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -78,8 +82,4 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
-production:
-  <<: *default
-  database: chat_practical_production
-  username: chat_practical
-  password: <%= ENV['CHAT_PRACTICAL_DATABASE_PASSWORD'] %>
+
