@@ -17,7 +17,7 @@ App.room = App.cable.subscriptions.create "RoomChannel",
     App.room.speak $('#message_field').val()
     $('#message_field').val('')
 
-  $(document).on 'keypress', '[data-behavior~=room_speaker]', (event) ->
+  $(document).on 'keypress', '[id~=message_field]', (event) ->
     if event.keyCode is 13 # return/enter = send
       send_msg()
       event.preventDefault()
