@@ -1,11 +1,12 @@
 <h1>Chat room</h1>
 
 <div id="messages"
-  style="overflow: auto; width: 480px; height: 300px">
+  style="overflow: auto; width: 640px; height: 360px; position: relative; left: 30px; background: lemonchiffon">
   <%= render @messages %>
 </div>
 
 <form>
   <label>Say something:</label><br>
-  <input type="text" data-behavior="room_speaker">
+  <input type="text" id="message_field" data-behavior="room_speaker">
+  <input type="button" id="send_btn" value="Send">
 </form>
