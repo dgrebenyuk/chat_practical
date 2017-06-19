@@ -1,3 +1,8 @@
 <div class=“message”>
+  <% if message.user_id.nil? %>
+    <p><%= 'Web User' %></p>
+  <% else %>
+    <p><%= User.find_by(telegram_id: message.user_id).first_name %></p>
+  <% end %>
   <p><%= message.content %></p>
 </div>

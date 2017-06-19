@@ -9,7 +9,6 @@ class BotMessageDispatcher
 
   def process
     start_command = BotCommand::Start.new(user, message)
-    $logger.debug "start_command: #{start_command}"
 
     if start_command.should_start?
       start_command.start
@@ -21,6 +20,6 @@ class BotMessageDispatcher
   private
 
   def unknown_command
-    BotCommand::Undefined.new(user, message).send_to_web
+    BotCommand::ForwardingToWeb.new(user, message).send_to_web
   end
 end
