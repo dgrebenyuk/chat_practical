@@ -8,18 +8,18 @@ class BotMessageDispatcher
   end
 
   def process
-    start_command = BotCommand::Start.new(user, message)
-
-    if start_command.should_start?
-      start_command.start
+    if chat_id > 0
+      BotCommand::ToTg.new(@user, @message).send_to_user('Hello! You should'\
+      'invite me to group, so I could read user messages and write messages'\
+      'sending by people outside Telegram. Speaking with me has no sence for now')
     else
-      unknown_command
+      BotCommand::ToWeb.new(@user, @message).send_to_web
     end
   end
 
   private
 
-  def unknown_command
-    BotCommand::ForwardingToWeb.new(user, message).send_to_web
+  def chat_id
+    @message[:message][:chat][:id]
   end
 end

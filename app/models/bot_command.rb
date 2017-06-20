@@ -9,15 +9,7 @@ module BotCommand
       @user = user
       @message = message
       token = Rails.application.secrets.bot_token
-      @api = MyApi.new(token)
-    end
-
-    def should_start?
-      raise NotImplementedError
-    end
-
-    def start
-      raise NotImplementedError
+      @api = ::Telegram::Bot::Api.new(token)
     end
 
     protected
@@ -37,19 +29,7 @@ module BotCommand
     end
   end
 
-  class Start < Base
-    def should_start?
-      text =~ /\A\/start/
-    end
-
-    def start
-      send_to_tg_user 'Hello! You should invite me to group, so I could read user
-      messages and write messages sending by people outside Telegram. Speaking
-      with me has no sence for now'
-    end
-  end
-
-  class ForwardingToWeb < Base
+  class ToWeb < Base
     def send_to_web
       Message.create! content: text, user_id: from
       $logger.debug "send_to_web id: #{from}"
@@ -57,27 +37,13 @@ module BotCommand
     end
   end
 
-  class ForwardingToTg < Base
+  class ToTg < Base
     def send_to_group(txt)
       send_to_tg(txt, -194413633)
     end
 
     def send_to_user(txt)
       send_to_tg(txt, @user.telegram_id)
-    end
-  end
-
-  class MyApi < ::Telegram::Bot::Api
-    def call(endpoint, raw_params = {})
-      params = build_params(raw_params)
-      # $logger.debug "params: #{endpoint}"
-      response = conn.post("/bot#{token}/#{endpoint}", params)
-      if response.status == 200
-        JSON.parse(response.body)
-      else
-        raise Exceptions::ResponseError.new(response),
-        'Telegram API has returned the error.'
-      end
     end
   end
 end
