@@ -1,34 +1,27 @@
 <div class="container">
   <!-- Marketing Icons Section -->
   <div class="row">
-    <div class="col-lg-12">
-      <h1 class="page-header">
-        Welcome and Goodbye!
-      </h1>
-    </div>
-    <div class="col-md-8">
+    <div class="col-md-8" style="padding: 10px">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4><i class="fa fa-fw fa-check"></i> Chat room</h4>
         </div>
 
         <div id="messages"
-        style="overflow: auto; height: 360px; background: lemonchiffon">
+        style="overflow: auto; height: 400px; background: lemonchiffon">
         <%= render @messages %>
       </div>
 
-      <form>
-        <label>Say something:</label><br>
-        <input type="text" id="message_field" data-behavior="room_speaker">
-        <input type="button" id="send_btn" value="Send">
-      </form>
-
       <div class="panel-body">
-        <a href="#" class="btn btn-default">Work More</a>
+        <form>
+          <label>Say something clever:</label><br>
+          <input class="btn btn-default" type="text" id="message_field" data-behavior="room_speaker">
+          <input class="btn btn-default" type="button" id="send_btn" value="Send">
+        </form>
       </div>
     </div>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-4" style="padding: 10px">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h4><i class="fa fa-fw fa-gift"></i> Very free &amp; also Open Source</h4>
