@@ -31,9 +31,20 @@ module BotCommand
 
   class ToWeb < Base
     def send_to_web
-      Message.create! content: text, user_id: from
+      mes = Message.create! content: text, user_id: from
       $logger.debug "send_to_web id: #{from}"
       $logger.debug "send_to_web text: #{text}"
+
+      unless @message[:message][:photo].nil?
+        $logger.debug @message[:message][:photo]
+        response = @api.call('getFile', file_id: @message[:message][:photo][0][:file_id])
+        $logger.debug response
+        path = response['result']['file_path']
+        $logger.debug path
+        Image.download path, mes.id
+      end
+
+      MessageBroadcastJob.perform_later mes
     end
   end
 
