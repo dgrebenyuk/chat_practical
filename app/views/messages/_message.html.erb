@@ -6,8 +6,13 @@
     </div>
   <% else %>
     <div class="info message">
-      <h6><%= User.find_by(telegram_id: message.user_id).first_name + ' ' +
-      User.find_by(telegram_id: message.user_id).last_name%></h6>
+      <% fn = User.find_by(telegram_id: message.user_id).first_name %>
+      <% ln = User.find_by(telegram_id: message.user_id).last_name %>
+      <% name = '' %>
+      <% name = name + fn unless fn.nil? %>
+      <% name = name + ln unless ln.nil? %>
+      
+      <h6><%= name %></h6>
 
       <p><%= message.content %></p>
 
