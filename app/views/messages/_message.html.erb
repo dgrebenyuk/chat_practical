@@ -13,12 +13,8 @@
 
       <% unless message.images.empty? %>
         <% $logger.debug message.id %>
-
-<!--        <img src="data:image/jpg; base64, <%= "/>  -->
-
-        <%= '<img src="data:image/jpg;base64,%s">' % message.images.first.body %>
-
-<!--        <%= image_tag message.images.first.body %> -->
+        <% img = message.images.first.body %>
+        <%= ('<img src="data:image/jpg;base64,%s">' % img).html_safe %>
       <% end %>
 
     </div>

@@ -10,10 +10,10 @@ class Image < ApplicationRecord
     rescue Faraday::Error::ConnectionFailed
       raise ArgumentError, 'bad url, connection failed'
     end
-    raise ArgumentError, "bad server response #{res.status.to_i}" if res.status.to_i >= 400  #res.success?
+    raise ArgumentError, "bad server response #{res.status.to_i}" if res.status.to_i >= 400
     $logger.debug res.body
     encoded = Base64.encode64 res.body
     $logger.debug encoded
-    self.create! message_id: message_id, body: encoded
+    create! message_id: message_id, body: encoded
   end
 end

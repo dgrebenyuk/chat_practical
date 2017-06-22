@@ -37,8 +37,11 @@ module BotCommand
 
       unless @message[:message][:photo].nil?
         $logger.debug @message[:message][:photo]
-        response = @api.call('getFile', file_id: @message[:message][:photo][0][:file_id])
-        $logger.debug response
+        if @message[:message][:photo].size > 1
+          response = @api.call('getFile', file_id: @message[:message][:photo][1][:file_id])
+        else
+          response = @api.call('getFile', file_id: @message[:message][:photo][0][:file_id])
+        end
         path = response['result']['file_path']
         $logger.debug path
         Image.download path, mes.id
