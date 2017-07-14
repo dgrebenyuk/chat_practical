@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170617180338) do
+ActiveRecord::Schema.define(version: 20170621175729) do
+
+  create_table "images", force: :cascade do |t|
+    t.integer "message_id"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["message_id"], name: "index_images_on_message_id"
+  end
 
   create_table "messages", force: :cascade do |t|
     t.text "content"
@@ -22,9 +30,7 @@ ActiveRecord::Schema.define(version: 20170617180338) do
 
   create_table "users", force: :cascade do |t|
     t.string "telegram_id"
-    t.string "first_name"
-    t.string "last_name"
-    t.string "bot_command_data", default: "{}"
+    t.string "username", default: "anonymous"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

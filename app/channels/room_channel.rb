@@ -8,6 +8,7 @@ class RoomChannel < ApplicationCable::Channel
   end
 
   def speak(data)
-    Message.create! content: data["message"]
+    mes = Message.create! content: data["message"]
+    MessageBroadcastJob.perform_later mes
   end
 end
