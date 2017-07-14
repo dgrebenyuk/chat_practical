@@ -6,22 +6,12 @@
     </div>
   <% else %>
     <div class="info message">
-      <% fn = User.find_by(telegram_id: message.user_id).first_name %>
-      <% ln = User.find_by(telegram_id: message.user_id).last_name %>
-      <% name = '' %>
-      <% name = name + fn unless fn.nil? %>
-      <% name = name + ln unless ln.nil? %>
-      
-      <h6><%= name %></h6>
-
+      <h6><%= User.find_by(telegram_id: message.user_id).username %></h6>
       <p><%= message.content %></p>
-
       <% unless message.images.empty? %>
-        <% $logger.debug message.id %>
         <% img = message.images.first.body %>
         <%= ('<img src="data:image/jpg;base64,%s">' % img).html_safe %>
       <% end %>
-
     </div>
   <% end %>
 </div>

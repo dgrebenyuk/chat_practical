@@ -6,7 +6,7 @@ class WebhooksController < ApplicationController
   # which contains the message and info about the user who sent it and etc.
   def callback
     $logger ||= Logger.new(STDOUT)
-    $logger.debug "webhook_controller callback user.telegram_id: #{user.telegram_id}"
+    $logger.debug "webhook_controller id: #{user.telegram_id}"
     dispatcher.new(webhook, user).process
     render nothing: true, head: :ok
   end
@@ -31,7 +31,7 @@ class WebhooksController < ApplicationController
 
   def register_user
     @user = User.find_or_initialize_by(telegram_id: from[:id])
-    @user.update_attributes!(first_name: from[:first_name], last_name: from[:last_name])
+    @user.update_attributes!(username: "@#{from[:username]}")
     @user
   end
 end
