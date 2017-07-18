@@ -1,3 +1,4 @@
+# Receives messages from Telegram
 class WebhooksController < ApplicationController
   skip_before_action :verify_authenticity_token
 
@@ -5,8 +6,6 @@ class WebhooksController < ApplicationController
   # WebhooksController#callback in a params['webhook'] hash,
   # which contains the message and info about the user who sent it and etc.
   def callback
-    $logger ||= Logger.new(STDOUT)
-    $logger.debug "webhook_controller id: #{user.telegram_id}"
     dispatcher.new(webhook, user).process
     render nothing: true, head: :ok
   end

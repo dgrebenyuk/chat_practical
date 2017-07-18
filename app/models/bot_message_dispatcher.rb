@@ -1,4 +1,4 @@
-# Command trees
+# High level commands
 class BotMessageDispatcher
   attr_reader :message, :user
 
@@ -13,7 +13,7 @@ class BotMessageDispatcher
       'invite me to group, so I could read user messages and write messages '\
       'sending by people outside Telegram. Speaking with me has no sence for now')
     else
-      BotCommand::ToWeb.new(@user, @message).send_to_web
+      BotCommand::ToWeb.new(@user, @message).send
     end
   end
 
