@@ -9,14 +9,13 @@ class MessageBroadcastJob < ApplicationJob
 
     # message from web should be sent additionally to Telegram
     if message.user_id.nil?
-      BotCommand::ToTg.new(nil, nil).send_to_group(render_message(message,'tg_message'))
-      # BotCommand::ToTg.new.send_to_group(render_message(message, 'tg_message'))
+      Command::Telegram.new(nil, nil).send_to_group(render_message(message,'tg_message'))
     end
   end
 
   private
 
-  # render in /views
+  # rendering in /views
   def render_message(message, type = 'message')
     ApplicationController.renderer.render(partial: "messages/#{type}", locals: { message: message })
   end

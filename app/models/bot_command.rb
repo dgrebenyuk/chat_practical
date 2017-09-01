@@ -1,6 +1,6 @@
 require 'telegram/bot'
 
-module BotCommand
+module Command
   class Base
     attr_reader :user, :message, :api
 
@@ -8,7 +8,7 @@ module BotCommand
       @user = user
       @message = message
       token = Rails.application.secrets.bot_token
-      @api = ::Telegram::Bot::Api.new(token)
+      @api = ::Telegram::Bot::Api.new token
     end
 
     protected

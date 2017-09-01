@@ -7,12 +7,13 @@ class ImageDownloadJob < ApplicationJob
   def perform(path, message_id)
     url = "https://api.telegram.org/file/bot#{Rails.application.secrets.bot_token}/#{path}"
     begin
-      res = Faraday.get url.to_s
+      response = Faraday.get url.to_s
     rescue Faraday::Error::ConnectionFailed
       raise ArgumentError, 'bad url, connection failed'
     end
-    raise ArgumentError, "bad server response #{res.status.to_i}" if res.status.to_i >= 400
-    save(res.body, message_id)
+    status = response.status.to_i
+    raise ArgumentError, "bad server response #{status}" if status >= 400
+    save(response.body, message_id)
   end
 
   private
