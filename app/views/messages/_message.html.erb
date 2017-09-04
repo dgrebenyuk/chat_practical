@@ -1,0 +1,17 @@
+<div class=“message”>
+  <% if message.user_id.nil? %>
+    <div class="success message">
+      <!-- <h6><%= 'Web User' %></h6> -->
+      <p><%= message.content %></p>
+    </div>
+  <% else %>
+    <div class="info message">
+      <h6><%= User.find_by(telegram_id: message.user_id).username %></h6>
+      <p><%= message.content %></p>
+      <% unless message.images.empty? %>
+        <% img = message.images.first.body %>
+        <%= ('<img src="data:image/jpg;base64,%s">' % img).html_safe %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
